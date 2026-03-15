@@ -14,32 +14,6 @@ padding:0;
 box-sizing:border-box;
 }
 
-.eyes{
-width:420px;
-max-width:80vw;
-margin-bottom:40px;
-filter:contrast(120%) brightness(110%);
-animation:glitchEyes 4s infinite;
-}
-
-/* glitch cybercore */
-
-@keyframes glitchEyes{
-
-0%{transform:translate(0)}
-10%{transform:translate(-3px,2px)}
-20%{transform:translate(3px,-2px)}
-30%{transform:translate(-2px,1px)}
-40%{transform:translate(2px,-1px)}
-50%{transform:translate(0)}
-60%{filter:hue-rotate(20deg)}
-70%{filter:hue-rotate(-20deg)}
-80%{transform:translate(1px,-1px)}
-90%{transform:translate(-1px,1px)}
-100%{transform:translate(0)}
-
-}
-
 body{
 background:black;
 color:#00fff7;
@@ -51,7 +25,7 @@ align-items:center;
 overflow:hidden;
 }
 
-/* grid cyber */
+/* GRID CYBER */
 
 body::before{
 content:"";
@@ -70,7 +44,7 @@ animation:gridMove 15s linear infinite;
 100%{transform:translateY(40px)}
 }
 
-/* scanlines */
+/* SCANLINES */
 
 body::after{
 content:"";
@@ -85,32 +59,57 @@ rgba(0,0,0,0.35) 3px
 pointer-events:none;
 }
 
-/* container */
+/* CONTAINER */
 
 .container{
 text-align:center;
 z-index:2;
 max-width:700px;
-}
-
-/* glitch title */
-
-.title{
-font-size:60px;
-color:#00fff7;
 position:relative;
-text-shadow:0 0 15px #00fff7;
-animation:glitch 3s infinite;
 }
 
-@keyframes glitch{
+/* EYES */
+
+.eyes{
+width:420px;
+max-width:80vw;
+margin-bottom:40px;
+filter:contrast(120%) brightness(110%);
+animation:glitchEyes 4s infinite;
+}
+
+@keyframes glitchEyes{
 0%{transform:translate(0)}
-20%{transform:translate(-2px,2px)}
-40%{transform:translate(2px,-2px)}
-60%{transform:translate(-1px,1px)}
+10%{transform:translate(-3px,2px)}
+20%{transform:translate(3px,-2px)}
+30%{transform:translate(-2px,1px)}
+40%{transform:translate(2px,-1px)}
+50%{transform:translate(0)}
+60%{filter:hue-rotate(20deg)}
+70%{filter:hue-rotate(-20deg)}
 80%{transform:translate(1px,-1px)}
+90%{transform:translate(-1px,1px)}
 100%{transform:translate(0)}
 }
+
+/* SCANNER */
+
+.scanner{
+position:absolute;
+left:0;
+width:100%;
+height:2px;
+background:#00fff7;
+box-shadow:0 0 15px #00fff7;
+animation:scan 4s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0}
+100%{top:100%}
+}
+
+/* SUBTITLE */
 
 .subtitle{
 margin-top:20px;
@@ -118,7 +117,7 @@ font-size:18px;
 color:#00a6a6;
 }
 
-/* typing text */
+/* TYPING */
 
 .typing{
 margin-top:40px;
@@ -126,7 +125,7 @@ font-size:20px;
 min-height:60px;
 }
 
-/* cyber button */
+/* BUTTON */
 
 button{
 margin-top:40px;
@@ -146,14 +145,29 @@ color:black;
 box-shadow:0 0 20px #00fff7;
 }
 
+/* PARTICLES */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:1;
+}
+
 </style>
 </head>
 
 <body>
 
+<canvas id="particles"></canvas>
+
 <div class="container">
 
+<div style="position:relative;display:inline-block;">
 <img class="eyes" src="https://i.imgur.com/7ftC0qJ.jpeg">
+<div class="scanner"></div>
+</div>
 
 <div class="subtitle">
 ToMyManda.com
@@ -166,7 +180,7 @@ ToMyManda.com
 </div>
 
 <script>
-  
+
 const message =
 "No meio de todo esse ruído... \
 você foi o único sinal claro. \
@@ -185,9 +199,71 @@ setTimeout(typeWriter,40);
 
 typeWriter();
 
+/* INTERFACE 2 */
+
 function reveal(){
-alert("CONNECTION STABLE\n\nVocê é a pessoa mais importante do meu sistema.");
+
+document.querySelector(".container").innerHTML = `
+<h2 style="color:#00fff7;text-shadow:0 0 10px #00fff7;">
+CONNECTION ESTABLISHED
+</h2>
+
+<p style="margin-top:30px;font-size:20px;">
+Sistema reconheceu o usuário:<br><br>
+Amanda
+</p>
+
+<p style="margin-top:30px;">
+Status: prioridade máxima
+</p>
+
+<button onclick="location.reload()">REBOOT</button>
+`;
+
 }
+
+/* PARTICLES */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+document.addEventListener("mousemove", e=>{
+particles.push({
+x:e.clientX,
+y:e.clientY,
+life:60
+});
+});
+
+function animateParticles(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(let i=0;i<particles.length;i++){
+
+let p = particles[i];
+
+ctx.fillStyle="#00fff7";
+ctx.fillRect(p.x,p.y,2,2);
+
+p.life--;
+
+if(p.life<=0){
+particles.splice(i,1);
+i--;
+}
+
+}
+
+requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
 
 </script>
 
