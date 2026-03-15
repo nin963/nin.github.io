@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Para você ❤️</title>
+<title>Para você</title>
 
 <style>
 body{
-background:black;
-color:white;
-font-family:Arial;
+background:#0b0b0b;
+color:#d0c6d8;
+font-family: "Times New Roman", serif;
 text-align:center;
-margin-top:100px;
+margin-top:120px;
+}
+
+h1{
+color:#b3003c;
+font-size:50px;
+letter-spacing:3px;
+}
+
+p{
+font-size:20px;
 }
 
 button{
 padding:15px;
-font-size:20px;
-border:none;
-background:#ff4d6d;
-color:white;
-border-radius:10px;
+font-size:18px;
+background:black;
+color:#b3003c;
+border:1px solid #b3003c;
 cursor:pointer;
 }
 
 button:hover{
-background:#ff1f4b;
+background:#1a0010;
 }
+
 </style>
 
 </head>
 
 <body>
 
-<h1>Oi ❤️</h1>
-<p>Eu fiz esse pequeno site só para você.</p>
+<h1>Para você</h1>
 
-<button onclick="mostrar()">Clique aqui</button>
+<p>
+Entre todas as noites silenciosas do mundo,  
+foi você que trouxe luz para a minha.
+</p>
 
-<p id="mensagem"></p>
+<button onclick="mostrar()">Leia mais</button>
+
+<p id="msg"></p>
 
 <script>
 function mostrar(){
-document.getElementById("mensagem").innerHTML =
-"Entre bilhões de pessoas no mundo... eu escolheria você de novo.";
+document.getElementById("msg").innerHTML =
+"Mesmo na escuridão mais profunda, eu escolheria caminhar ao seu lado.";
 }
 </script>
 
