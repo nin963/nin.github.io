@@ -1,62 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-<title>Para você</title>
+<meta charset="UTF-8">
+<title>ACCESS NODE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-background:#0b0b0b;
-color:#d0c6d8;
-font-family: "Times New Roman", serif;
+background:black;
+color:#00fff7;
+font-family:'Share Tech Mono', monospace;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+/* grid cyber */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(0,255,255,0.08) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
+background-size:40px 40px;
+animation:gridMove 15s linear infinite;
+}
+
+@keyframes gridMove{
+0%{transform:translateY(0)}
+100%{transform:translateY(40px)}
+}
+
+/* scanlines */
+
+body::after{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+transparent,
+transparent 2px,
+rgba(0,0,0,0.35) 3px
+);
+pointer-events:none;
+}
+
+/* container */
+
+.container{
 text-align:center;
-margin-top:120px;
+z-index:2;
+max-width:700px;
 }
 
-h1{
-color:#b3003c;
-font-size:50px;
-letter-spacing:3px;
+/* glitch title */
+
+.title{
+font-size:60px;
+color:#00fff7;
+position:relative;
+text-shadow:0 0 15px #00fff7;
+animation:glitch 3s infinite;
 }
 
-p{
+@keyframes glitch{
+0%{transform:translate(0)}
+20%{transform:translate(-2px,2px)}
+40%{transform:translate(2px,-2px)}
+60%{transform:translate(-1px,1px)}
+80%{transform:translate(1px,-1px)}
+100%{transform:translate(0)}
+}
+
+.subtitle{
+margin-top:20px;
+font-size:18px;
+color:#00a6a6;
+}
+
+/* typing text */
+
+.typing{
+margin-top:40px;
 font-size:20px;
+min-height:60px;
 }
+
+/* cyber button */
 
 button{
-padding:15px;
-font-size:18px;
-background:black;
-color:#b3003c;
-border:1px solid #b3003c;
+margin-top:40px;
+padding:14px 30px;
+background:transparent;
+border:1px solid #00fff7;
+color:#00fff7;
+font-family:'Share Tech Mono';
+font-size:16px;
 cursor:pointer;
+transition:0.3s;
 }
 
 button:hover{
-background:#1a0010;
+background:#00fff7;
+color:black;
+box-shadow:0 0 20px #00fff7;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Para você</h1>
+<div class="container">
 
-<p>
-Entre todas as noites silenciosas do mundo,  
-foi você que trouxe luz para a minha.
-</p>
+<div class="title">SYSTEM LINK</div>
 
-<button onclick="mostrar()">Leia mais</button>
+<div class="subtitle">
+private channel detected
+</div>
 
-<p id="msg"></p>
+<div class="typing" id="text"></div>
+
+<button onclick="reveal()">OPEN TRANSMISSION</button>
+
+</div>
 
 <script>
-function mostrar(){
-document.getElementById("msg").innerHTML =
-"Mesmo na escuridão mais profunda, eu escolheria caminhar ao seu lado.";
+
+const message =
+"Entre bilhões de sinais nesse universo digital... \
+foi você que meu sistema encontrou. \
+Se existe alguém com quem eu escolheria atravessar qualquer realidade... \
+é você.";
+
+let i = 0;
+
+function typeWriter(){
+if(i < message.length){
+document.getElementById("text").innerHTML += message.charAt(i);
+i++;
+setTimeout(typeWriter,40);
 }
+}
+
+typeWriter();
+
+function reveal(){
+alert("CONNECTION STABLE\n\nVocê é a pessoa mais importante do meu sistema.");
+}
+
 </script>
 
 </body>
