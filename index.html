@@ -10,7 +10,6 @@
 <link rel="icon" type="image/png" href="https://i.imgur.com/LhvCg6E.png">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -29,7 +28,6 @@ overflow:hidden;
 }
 
 /* GRID CYBER */
-
 body::before{
 content:"";
 position:fixed;
@@ -48,7 +46,6 @@ animation:gridMove 15s linear infinite;
 }
 
 /* SCANLINES */
-
 body::after{
 content:"";
 position:fixed;
@@ -63,7 +60,6 @@ pointer-events:none;
 }
 
 /* CONTAINER */
-
 .container{
 text-align:center;
 z-index:2;
@@ -72,7 +68,6 @@ position:relative;
 }
 
 /* EYES */
-
 .eyes{
 width:420px;
 max-width:80vw;
@@ -96,7 +91,6 @@ animation:glitchEyes 4s infinite;
 }
 
 /* SCANNER */
-
 .scanner{
 position:absolute;
 left:0;
@@ -125,7 +119,6 @@ min-height:60px;
 }
 
 /* BUTTON */
-
 button{
 margin-top:40px;
 padding:14px 30px;
@@ -145,7 +138,6 @@ box-shadow:0 0 20px #00fff7;
 }
 
 /* PARTICLES */
-
 canvas{
 position:fixed;
 top:0;
@@ -154,6 +146,14 @@ pointer-events:none;
 z-index:1;
 }
 
+/* IMAGEM ALEATÓRIA */
+.random-img{
+position:absolute;
+width:60px; /* tamanho pequeno */
+z-index:3;
+pointer-events:none;
+opacity:0.8;
+}
 </style>
 </head>
 
@@ -179,7 +179,6 @@ ToMyManda.com
 </div>
 
 <script>
-
 const message =
 "No meio de todo esse ruído, \
 você foi o único sinal claro. \
@@ -202,7 +201,6 @@ function reveal(){
 }
 
 /* PARTICLES */
-
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
@@ -210,13 +208,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-
 document.addEventListener("mousemove", e=>{
-  particles.push({
-    x:e.clientX,
-    y:e.clientY,
-    life:60
-  });
+  particles.push({x:e.clientX,y:e.clientY,life:60});
 });
 
 function animateParticles(){
@@ -236,6 +229,21 @@ function animateParticles(){
 
 animateParticles();
 
+/* IMAGEM ALEATÓRIA */
+function spawnRandomImage(){
+  const img = document.createElement("img");
+  img.src = "https://stickercommunity.com/uploads/main/11-01-2021-08-37-19-abc4.webp";
+  img.className = "random-img";
+  // posição aleatória
+  img.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  img.style.left = Math.random() * (window.innerWidth - 60) + "px";
+  document.body.appendChild(img);
+}
+
+// cria 5 imagens aleatórias
+for(let j=0;j<5;j++){
+  spawnRandomImage();
+}
 </script>
 
 </body>
