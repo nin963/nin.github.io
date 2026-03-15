@@ -29,6 +29,7 @@ overflow:hidden;
 }
 
 /* GRID CYBER */
+
 body::before{
 content:"";
 position:fixed;
@@ -40,12 +41,14 @@ linear-gradient(90deg, rgba(0,255,255,0.08) 1px, transparent 1px);
 background-size:40px 40px;
 animation:gridMove 15s linear infinite;
 }
+
 @keyframes gridMove{
 0%{transform:translateY(0)}
 100%{transform:translateY(40px)}
 }
 
 /* SCANLINES */
+
 body::after{
 content:"";
 position:fixed;
@@ -60,6 +63,7 @@ pointer-events:none;
 }
 
 /* CONTAINER */
+
 .container{
 text-align:center;
 z-index:2;
@@ -68,6 +72,7 @@ position:relative;
 }
 
 /* EYES */
+
 .eyes{
 width:420px;
 max-width:80vw;
@@ -75,6 +80,7 @@ margin-bottom:40px;
 filter:contrast(120%) brightness(110%);
 animation:glitchEyes 4s infinite;
 }
+
 @keyframes glitchEyes{
 0%{transform:translate(0)}
 10%{transform:translate(-3px,2px)}
@@ -90,6 +96,7 @@ animation:glitchEyes 4s infinite;
 }
 
 /* SCANNER */
+
 .scanner{
 position:absolute;
 left:0;
@@ -99,6 +106,7 @@ background:#00fff7;
 box-shadow:0 0 15px #00fff7;
 animation:scan 4s linear infinite;
 }
+
 @keyframes scan{
 0%{top:0}
 100%{top:100%}
@@ -117,6 +125,7 @@ min-height:60px;
 }
 
 /* BUTTON */
+
 button{
 margin-top:40px;
 padding:14px 30px;
@@ -128,6 +137,7 @@ font-size:16px;
 cursor:pointer;
 transition:0.3s;
 }
+
 button:hover{
 background:#00fff7;
 color:black;
@@ -135,68 +145,13 @@ box-shadow:0 0 20px #00fff7;
 }
 
 /* PARTICLES */
+
 canvas{
 position:fixed;
 top:0;
 left:0;
 pointer-events:none;
 z-index:1;
-}
-
-/* POPUP MOBILE ALERT */
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.4);
-display:flex;
-justify-content:center;
-align-items:center;
-opacity:0;
-pointer-events:none;
-transition:0.3s;
-z-index:20;
-}
-
-.popup.show{
-opacity:1;
-pointer-events:auto;
-}
-
-.popupBox{
-background:#fff;
-color:#000;
-border-radius:15px;
-padding:20px;
-text-align:center;
-max-width:80%;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-font-family: 'Share Tech Mono', monospace;
-}
-
-.popupBox h2{
-margin-bottom:15px;
-font-size:18px;
-}
-
-.popupBox p{
-margin-bottom:20px;
-font-size:16px;
-}
-
-.popupBox button{
-background:#007AFF;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-cursor:pointer;
-font-size:16px;
-}
-.popupBox button:hover{
-background:#005BB5;
 }
 
 </style>
@@ -223,19 +178,6 @@ ToMyManda.com
 
 </div>
 
-<!-- POPUP MOBILE ALERT -->
-<div id="popup" class="popup">
-<div class="popupBox">
-<h2>CONNECTION ESTABLISHED</h2>
-<p>
-Sistema reconheceu o usuário:<br><br>
-Amêndoas
-</p>
-<p>Status: prioridade máxima</p>
-<button onclick="closePopup()">OK</button>
-</div>
-</div>
-
 <script>
 
 const message =
@@ -245,45 +187,53 @@ Se existe alguém com quem eu escolheria atravessar qualquer realidade\
 é você.";
 
 let i = 0;
-
 function typeWriter(){
-if(i < message.length){
-document.getElementById("text").innerHTML += message.charAt(i);
-i++;
-setTimeout(typeWriter,40);
-}
+  if(i < message.length){
+    document.getElementById("text").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter,40);
+  }
 }
 typeWriter();
 
-/* POPUP MOBILE ALERT */
+/* ALERTA NATIVO DO CELULAR */
 function reveal(){
-document.getElementById("popup").classList.add("show");
-}
-function closePopup(){
-document.getElementById("popup").classList.remove("show");
+  alert("Sistema reconheceu o usuário:\n\nAmêndoas\n\nStatus: prioridade máxima");
 }
 
 /* PARTICLES */
+
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
+
 document.addEventListener("mousemove", e=>{
-particles.push({x:e.clientX,y:e.clientY,life:60});
+  particles.push({
+    x:e.clientX,
+    y:e.clientY,
+    life:60
+  });
 });
+
 function animateParticles(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-for(let i=0;i<particles.length;i++){
-let p = particles[i];
-ctx.fillStyle="#00fff7";
-ctx.fillRect(p.x,p.y,2,2);
-p.life--;
-if(p.life<=0){particles.splice(i,1);i--;}
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<particles.length;i++){
+    let p = particles[i];
+    ctx.fillStyle="#00fff7";
+    ctx.fillRect(p.x,p.y,2,2);
+    p.life--;
+    if(p.life<=0){
+      particles.splice(i,1);
+      i--;
+    }
+  }
+  requestAnimationFrame(animateParticles);
 }
-requestAnimationFrame(animateParticles);
-}
+
 animateParticles();
 
 </script>
