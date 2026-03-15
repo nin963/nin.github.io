@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>ACCESS NODE</title>
+<title>AMANDIOCA</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
@@ -25,7 +25,7 @@ align-items:center;
 overflow:hidden;
 }
 
-/* GRID */
+/* GRID CYBER */
 
 body::before{
 content:"";
@@ -74,6 +74,7 @@ position:relative;
 width:420px;
 max-width:80vw;
 margin-bottom:40px;
+filter:contrast(120%) brightness(110%);
 animation:glitchEyes 4s infinite;
 }
 
@@ -84,6 +85,11 @@ animation:glitchEyes 4s infinite;
 30%{transform:translate(-2px,1px)}
 40%{transform:translate(2px,-1px)}
 50%{transform:translate(0)}
+60%{filter:hue-rotate(20deg)}
+70%{filter:hue-rotate(-20deg)}
+80%{transform:translate(1px,-1px)}
+90%{transform:translate(-1px,1px)}
+100%{transform:translate(0)}
 }
 
 /* SCANNER */
@@ -133,6 +139,16 @@ button:hover{
 background:#00fff7;
 color:black;
 box-shadow:0 0 20px #00fff7;
+}
+
+/* PARTICLES */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:1;
 }
 
 /* POPUP */
@@ -209,6 +225,8 @@ animation:floatCat 10s ease-in-out infinite;
 
 <body>
 
+<canvas id="particles"></canvas>
+
 <div class="container">
 
 <div style="position:relative;display:inline-block;">
@@ -263,9 +281,9 @@ Status: prioridade máxima
 <script>
 
 const message =
-"No meio de todo esse ruído,\
-você foi o único sinal claro.\
-Se existe alguém com quem eu escolheria atravessar qualquer realidade,\
+"No meio de todo esse ruído, \
+você foi o único sinal claro. \
+Se existe alguém com quem eu escolheria atravessar qualquer realidade\
 é você.";
 
 let i = 0;
@@ -280,6 +298,8 @@ setTimeout(typeWriter,40);
 
 typeWriter();
 
+/* POPUP */
+
 function reveal(){
 document.getElementById("popup").classList.add("show");
 }
@@ -287,6 +307,49 @@ document.getElementById("popup").classList.add("show");
 function closePopup(){
 document.getElementById("popup").classList.remove("show");
 }
+
+/* PARTICLES */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+document.addEventListener("mousemove", e=>{
+particles.push({
+x:e.clientX,
+y:e.clientY,
+life:60
+});
+});
+
+function animateParticles(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(let i=0;i<particles.length;i++){
+
+let p = particles[i];
+
+ctx.fillStyle="#00fff7";
+ctx.fillRect(p.x,p.y,2,2);
+
+p.life--;
+
+if(p.life<=0){
+particles.splice(i,1);
+i--;
+}
+
+}
+
+requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
 
 </script>
 
