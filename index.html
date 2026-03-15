@@ -182,6 +182,75 @@ text-align:center;
 box-shadow:0 0 30px #00fff7;
 }
 
+/* NYAN CAT */
+
+.nyan{
+position:fixed;
+top:25%;
+left:-200px;
+width:180px;
+height:120px;
+background:url("https://media.tenor.com/6ov1Zp7kYV4AAAAi/nyan-cat.gif") no-repeat center/contain;
+animation:nyanMove 12s linear infinite;
+z-index:5;
+}
+
+.nyan::after{
+content:"";
+position:absolute;
+left:-800px;
+top:40px;
+width:800px;
+height:20px;
+background:linear-gradient(
+to right,
+red,
+orange,
+yellow,
+lime,
+cyan,
+blue,
+magenta
+);
+}
+
+/* NYAN MOVEMENT */
+
+@keyframes nyanMove{
+0%{transform:translateX(0)}
+100%{transform:translateX(calc(100vw + 400px))}
+}
+
+/* PUSHEEN */
+
+.pusheen{
+position:fixed;
+width:100px;
+z-index:4;
+animation:floatCat 10s ease-in-out infinite;
+}
+
+.p1{
+top:10%;
+left:10%;
+}
+
+.p2{
+top:70%;
+left:80%;
+}
+
+.p3{
+top:50%;
+left:5%;
+}
+
+@keyframes floatCat{
+0%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+100%{transform:translateY(0)}
+}
+
 </style>
 </head>
 
@@ -226,6 +295,16 @@ Status: prioridade máxima
 
 </div>
 </div>
+
+<!-- NYAN CAT -->
+
+<div class="nyan"></div>
+
+<!-- PUSHEEN -->
+
+<img class="pusheen p1" src="https://media.tenor.com/MkHqzY6nKXUAAAAi/pusheen-cat.gif">
+<img class="pusheen p2" src="https://media.tenor.com/2roX3uxz_68AAAAi/pusheen.gif">
+<img class="pusheen p3" src="https://media.tenor.com/q1zW7XQnq6QAAAAi/pusheen-eating.gif">
 
 <script>
 
